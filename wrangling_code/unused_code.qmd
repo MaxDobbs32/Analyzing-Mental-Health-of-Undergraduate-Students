@@ -1,0 +1,503 @@
+---
+title: "Shiny Project - Data Wrangling"
+format: pdf
+editor: visual
+---
+
+```{r}
+#| include: false
+
+library(readxl)
+library(openxlsx)
+## library(xlsx)
+library(data.table)
+library(tidyverse)
+```
+
+As a first step, the code below reads CSV files containing survey data from the Healthy Minds Network and creates R data frames from them.
+
+```{r}
+# Code in this block was written by Henry
+
+#| eval: false
+# Select variables that we chose for the project
+
+variables <- c("inst_type", "inst_geo", "adjust_aca_1", "deprawsc", 
+               "anx_score", "dx_dep", "dx_anx") 
+
+# Read all csv files
+#year_2007_2013 <- read.csv("data/HMS_2007-2013_Aggregate.csv")
+#year_2013_2014 <- read.csv("data/HMS_2013-2014_PUBLIC.csv")
+#year_2016_2017 <- read.csv("data/HMS_2016-2017_PUBLIC.csv")
+year_2017_2018 <- read.csv("data/HMS_2017-2018_PUBLIC_instchars.csv")
+year_2018_2019 <- read.csv("data/HMS_2018-2019_PUBLIC_instchars.csv")
+year_2019_2020 <- read.csv("data/HMS_2019-2020_PUBLIC_instchars.csv")
+year_2020_2021 <- read.csv("data/HMS_2020-2021_PUBLIC_instchars.csv")
+year_2021_2022 <- read.csv("data/HMS_2021-2022_PUBLIC_instchars.csv")
+year_2022_2023 <- read.csv("data/HMS_2022-2023_PUBLIC_instchars.csv")
+year_2023_2024 <- read.csv("data/HMS_2023-2024_PUBLIC_instchars.csv")
+year_2024_2025 <- read.csv("data/HMS_2024-2025_PUBLIC_instchars.csv")
+
+#year_2007_2013 <- fread("data/HMS_2007-2013_Aggregate.csv", select = variables)
+#year_2013_2014 <- fread("data/HMS_2013-2014_PUBLIC.csv", select = variables)
+#year_2016_2017 <- fread("data/HMS_2016-2017_PUBLIC.csv", select = variables)
+#year_2017_2018 <- fread("data/HMS_2017-2018_PUBLIC_instchars.csv", select = variables)
+#year_2018_2019 <- fread("data/HMS_2018-2019_PUBLIC_instchars.csv", select = variables)
+#year_2019_2020 <- fread("data/HMS_2019-2020_PUBLIC_instchars.csv", select = variables)
+#year_2020_2021 <- fread("data/HMS_2020-2021_PUBLIC_instchars.csv", select = variables)
+#year_2021_2022 <- fread("data/HMS_2021-2022_PUBLIC_instchars.csv", select = variables)
+#year_2022_2023 <- fread("data/HMS_2022-2023_PUBLIC_instchars.csv", select = variables)
+#year_2023_2024 <- fread("data/HMS_2023-2024_PUBLIC_instchars.csv", select = variables)
+#year_2024_2025 <- fread("data/HMS_2024-2025_PUBLIC_instchars.csv", select = variables)
+
+```
+
+Two academic years under our consideration are recorded as Excel files, rather than CSV files. This code reads them into data frames.
+
+```{r}
+#| eval: false
+# Read all xlsx files
+#year_2014_2015 <- read.xlsx("data/HMS_2014-2015_PUBLIC.xlsx", 1)
+#year_2015_2016 <- read.xlsx("data/HMS_2015-2016_PUBLIC.xlsx", 1)
+
+# year_2014_2015 <- read_excel("data/HMS_2014-2015_PUBLIC.xlsx", sheet = 1, range = "F:F,BH:BH,CV:CV,Dz:DZ,EZ:EZ,FF:FF")
+# year_2015_2016 <- read_excel("data/HMS_2015-2016_PUBLIC.xlsx", sheet - 1, range = "F:F,BH:BH,CV:CV,Dz:DZ,EZ:EZ,FF:FF")
+```
+
+After the data frames are pulled, the code below saves them into the RData file "data.RData", where they will be much quicker to retrieve from the hard drive.
+
+```{r}
+# Code in this block was written by Henry
+
+#| eval: false
+# Save the files for later
+save(
+  #year_2007_2013, 
+  #year_2013_2014, 
+  #year_2014_2015,
+  #year_2015_2016, 
+  #year_2016_2017, 
+  year_2017_2018, 
+  year_2018_2019, 
+  year_2019_2020,
+  year_2020_2021,
+  year_2021_2022, 
+  year_2022_2023, 
+  year_2023_2024, 
+  year_2024_2025,
+  file = "data.RData")
+```
+
+This code loads the data frames of the form `year_20XX_20XX` from data.RData.
+
+```{r}
+# Code in this block was written by Henry
+
+#| eval: false
+# Load the files
+load(file = "data.RData")
+```
+
+For each year, we create a new data frame of the form `syear_20XX_20XX` that only includes variables we need. We also change some variable names so that they are more consistent among data frames for all years. Furthermore, in the case of `survey_year`, we make sure it is always recorded as a number both for consistency's sake and so future visualizations can order data points over time.
+
+```{r}
+# Code in this block was written by Henry
+
+#| eval: false
+
+# Select from the data the variables that we chose for the project
+variables <- c("inst_type", "inst_geo", "adjust_aca_1", "deprawsc", 
+               "anx_score", "dx_dep", "dx_anx", "dx_ax")
+
+# Some of the years don't have all the variables we need
+# We record deg_ass and deg_bach to be able to recreate "inst_type"
+#syear_2007_2013 <- year_2007_2013 |>
+#  select(any_of(variables), survey_year, deg_ass, deg_bach)
+#  drop_na(-c("deg_ass", "deg_bach"))
+
+#syear_2013_2014 <- year_2013_2014 |>
+#  select(any_of(variables), deg_ass, deg_bach) |>
+#  drop_na(-c("deg_ass", "deg_bach")) |>
+#  mutate(survey_year = 2014)
+
+#syear_2014_2015 <- year_2014_2015 |>
+#  select(any_of(variables), deg_ass, deg_bach) |>
+#  drop_na(-c("deg_ass", "deg_bach")) |>
+#  mutate(survey_year = 2015)
+
+#syear_2015_2016 <- year_2015_2016 |>
+#  select(any_of(variables), degree_ass, degree_bach) |>
+#  rename(deg_ass = degree_ass, deg_bach = degree_bach) |>
+#  drop_na(-c("deg_ass", "deg_bach")) |>
+#  mutate(survey_year = 2016)
+
+#syear_2016_2017 <- year_2016_2017 |>
+#  select(any_of(variables), degree_ass, degree_bach) |>
+#  rename(deg_ass = degree_ass, deg_bach = degree_bach) |>
+#  drop_na(-c("deg_ass", "deg_bach")) |>
+#  mutate(survey_year = 2017)
+
+syear_2017_2018 <- year_2017_2018 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2018) 
+#  drop_na()
+
+syear_2018_2019 <- year_2018_2019 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2019) 
+#  drop_na()
+
+syear_2019_2020 <- year_2019_2020 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2020) 
+#  drop_na()
+
+syear_2020_2021 <- year_2020_2021 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2021) 
+#  drop_na()
+
+syear_2021_2022 <- year_2021_2022 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2022) 
+#  drop_na()
+
+syear_2022_2023 <- year_2022_2023 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2023) 
+#  drop_na()
+
+syear_2023_2024 <- year_2023_2024 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2024) 
+#  drop_na()
+
+syear_2024_2025 <- year_2024_2025 |>
+  select(any_of(variables)) |>
+  mutate(survey_year = 2025) 
+#  drop_na()
+```
+
+New data frames of the form `fyear_20XX_20XX` are created from those of the form `syear_20XX_20XX` from the last code block. Values meaning the same thing under a column are recorded differently by academic year. The code below mutates variables such that:
+
+-   anxiety diagnosis is recorded under `dx_anx`, and depression diagnosis is recorded under `dx_anx`, with "0" for false and "1" for true;
+
+-   the variable `inst_type` records pursuing an associate's degree as "1" and a bachelor's degree as "2";
+
+-   if not recorded numerically, `adjust_aca_1` is changed such that "very easy" to "very difficult" is replaced with "1" to "5" respectively;
+
+-   where a new column replaces an old one, the old one is removed;
+
+-   if having a bachelor's degree or not and having an associate's degree or not were previously recorded as true/false style variables, those columns are removed.
+
+This is the last step to maintain consistency in data among all data frames for all years.
+
+```{r}
+# Code in this block was written by Henry
+
+#| eval: false
+#fyear_2007_2013 <- syear_2007_2013 |>
+#  mutate(inst_type = case_when(
+#    deg_bach == 1 ~ 2,
+#    deg_ass == 1 ~ 1,
+#    deg_bach == deg_ass ~ NA
+#  )) |>
+#  mutate(dx_dep = if_else(dx_dep != "", 1, 0)) |>
+#  mutate(dx_anx = if_else(dx_ax != "", 1, 0)) |>
+#  select(-deg_bach, -deg_ass, -dx_ax) #|>
+#  drop_na()
+
+#fyear_2013_2014 <- syear_2013_2014 |>
+#  mutate(inst_type = case_when(
+#    deg_bach == 1 ~ 2,
+#    deg_ass == 1 ~ 1,
+#    deg_bach == deg_ass ~ NA
+#  )) |>
+#  mutate(dx_dep = if_else(dx_dep != "", 1, 0)) |>
+#  mutate(dx_anx = if_else(dx_ax != "", 1, 0)) |>
+#  select(-deg_bach, -deg_ass, -dx_ax) #|>
+#  drop_na()
+
+#fyear_2014_2015 <- syear_2014_2015 |>
+#  mutate(inst_type = case_when(
+#    deg_bach == 1 ~ 2,
+#    deg_ass == 1 ~ 1,
+#    deg_bach == deg_ass ~ NA
+#  )) |>
+#  mutate(dx_dep = if_else(dx_dep == "", 0, 1)) |>
+#  mutate(dx_anx = if_else(dx_ax == "", 0, 1)) |>
+#  select(-deg_bach, -deg_ass, -dx_ax) #|>
+#  drop_na()
+
+#fyear_2015_2016 <- syear_2015_2016 |>
+#  mutate(inst_type = case_when(
+#    deg_bach == 1 ~ 2,
+#    deg_ass == 1 ~ 1,
+#    deg_bach == deg_ass ~ NA
+#  )) |>
+#  select(-deg_bach, -deg_ass) #|>
+#  drop_na()
+
+#fyear_2016_2017 <- syear_2016_2017 |>
+#  mutate(inst_type = case_when(
+#    deg_bach == "Bachelor's" ~ 2,
+#    deg_ass == "Associate's" ~ 1,
+#    deg_bach == deg_ass ~ NA
+#  )) |>
+#  select(-deg_bach, -deg_ass) |>
+#  mutate(adjust_aca_1 = case_when(
+#    adjust_aca_1 == "very easy" ~ 1, 
+#    adjust_aca_1 == "easy" ~ 2, 
+#    adjust_aca_1 == "somewhat easy" ~ 3, 
+#    adjust_aca_1 == "somewhat difficult" ~ 4, 
+#    adjust_aca_1 == "difficult" ~ 5, 
+#    adjust_aca_1 == "very difficult" ~ 6
+#  )) |>
+#  mutate(dx_anx = if_else(dx_anx == "", 0, 1)) #|>
+#  drop_na()
+
+fyear_2017_2018 <- syear_2017_2018 |>
+  mutate(inst_type = case_when(
+    inst_type == "Bac" ~ 2,
+    inst_type == "Ass" ~ 1
+  )) #|>
+#  drop_na()
+
+fyear_2018_2019 <- syear_2018_2019 |>
+  mutate(inst_type = case_when(
+    inst_type == "Bac" ~ 2,
+    inst_type == "Ass" ~ 1
+  )) #|>
+#  drop_na()
+
+fyear_2019_2020 <- syear_2019_2020 |>
+  mutate(inst_type = case_when(
+    inst_type == "Baccalaureate Colleges" ~ 2,
+    inst_type == "Associate's Colleges" ~ 1
+  )) #|>
+#  drop_na()
+
+fyear_2020_2021 <- syear_2020_2021 |>
+  mutate(adjust_aca_1 = case_when(
+    adjust_aca_1 == "Very easy" ~ 1, 
+    adjust_aca_1 == "Easy" ~ 2, 
+    adjust_aca_1 == "Somewhat easy" ~ 3, 
+    adjust_aca_1 == "Somewhat difficult" ~ 4, 
+    adjust_aca_1 == "Difficult" ~ 5, 
+    adjust_aca_1 == "Very Difficult" ~ 6
+  )) |>
+  mutate(dx_anx = if_else(dx_anx == "", 0, 1)) #|>
+#  drop_na()
+
+fyear_2021_2022 <- syear_2021_2022 |>
+  mutate(inst_type = case_when(
+    inst_type == "Baccalaureate Colleges" ~ 2,
+    inst_type == "Associate's Colleges" ~ 1
+  )) #|>
+#  drop_na()
+
+fyear_2022_2023 <- syear_2022_2023
+fyear_2023_2024 <- syear_2023_2024
+fyear_2024_2025 <- syear_2024_2025
+```
+
+With data frames for all years made consistent with each other, they are all joined together into the `allyears` data frame, which is saved into an RData file.
+
+```{r}
+# Code in this block was written by Henry
+
+#| eval: false
+
+# Join all years of data
+allyears <- fyear_2017_2018 |>
+  #fyear_2007_2013 |>
+  #full_join(fyear_2013_2014) |>
+  #full_join(fyear_2014_2015) |>
+  #full_join(fyear_2015_2016) |>
+  #full_join(fyear_2016_2017) |>
+  full_join(fyear_2018_2019) |>
+  full_join(fyear_2019_2020) |>
+  full_join(fyear_2020_2021) |>
+  full_join(fyear_2021_2022) |>
+  full_join(fyear_2022_2023) |>
+  full_join(fyear_2023_2024) |>
+  full_join(fyear_2024_2025) |>
+  filter(inst_type == 1 | inst_type == 2)
+save(allyears, file = "allyears.RData")
+```
+
+Loads back all years data structure from allyears.RData. This is the first code that runs for rendering a pdf and in general, as it is more efficient to store `allyears` once it is created and then retrieve it, rather than run the time-consuming code above more than once.
+
+```{r}
+# Code in this block was written by Henry
+
+load(file = "allyears.RData")
+```
+
+The following code creates six summary tables where academic adjustment scores (`adjust_aca_1`) are averaged among all people with specified anxiety scores (`anx_score`) or depression scores (`deprawsc`), with three tables for each. The tables are further separated for each institution type (`inst_type`) by degree it confers: associate's degree, bachelor's degree, and total. The data is also filtered such that students with NA values for anxiety or depression scores and academic adjustment scores are not included.
+
+```{r}
+# Code in this block was written by Maxine
+
+# Gets the average academic adjustment by anxiety score for all students who
+# - are not recorded as NA for academic adjustment
+# - are not recorded as NA for anxiety
+
+anx_aca_total <- allyears |>
+  drop_na(adjust_aca_1, anx_score) |>
+  group_by(anx_score) |> # anx_score meaning anxiety score
+  summarize(
+    "Avg Academic Adjustment" = mean(adjust_aca_1)
+  )
+
+# Gets the average academic adjustment by depression score for all
+# students who
+# - are not recorded as NA for academic adjustment
+# - are not recorded as NA for depression
+
+dep_aca_total <- allyears |>
+  drop_na(adjust_aca_1, deprawsc) |>
+  group_by(deprawsc) |> # deprawsc meaning depression score
+  summarize(
+    "Avg Academic Adjustment" = mean(adjust_aca_1)
+  )
+
+# Gets the average academic adjustment by anxiety score among students
+# pursuing associate's degrees
+anx_aca_assoc <- allyears |>
+  drop_na(adjust_aca_1, anx_score) |>
+  filter(inst_type == 1) |> # indicates associate's degree
+  group_by(anx_score) |>
+  summarize(
+    "Avg Academic Adjustment" = mean(adjust_aca_1)
+  )
+
+# Gets the average academic adjustment by depression score among students
+# pursuing associate's degrees
+dep_aca_assoc <- allyears |>
+  drop_na(adjust_aca_1, deprawsc) |>
+  filter(inst_type == 1) |> # indicates associate's degree
+  group_by(deprawsc) |>
+  summarize(
+    "Avg Academic Adjustment" = mean(adjust_aca_1)
+  )
+
+# Gets the average academic adjustment by anxiety score among students
+# pursuing bachelor's degrees
+anx_aca_bac <- allyears |>
+  drop_na(adjust_aca_1, anx_score) |>
+  filter(inst_type == 2) |> # indicates bachelor's degree
+  group_by(anx_score) |>
+  summarize(
+    "Avg Academic Adjustment" = mean(adjust_aca_1)
+  )
+
+# Gets the average academic adjustment by depression score among students
+# pursuing bachelor's degrees
+dep_aca_bac <- allyears |>
+  drop_na(adjust_aca_1, deprawsc) |>
+  filter(inst_type == 2) |> # indicates bachelors's degree
+  group_by(deprawsc) |>
+  summarize(
+    "Avg Academic Adjustment" = mean(adjust_aca_1)
+  )
+```
+
+A new variable, *adjust_easy* is created in a new data frame, modif_allyears. It takes the value of 1 if adjust_aca_1 is between 1-3 and a value of 0 if it is between 4-6. If adjust_aca_1 is NA, *adjust_easy* will also be NA.
+
+Since there is an issue with the proportion of anxiety and depression being 100% in certain years, we will turn NAs into 0 in columns dx_anx and dx_dep for all years and make the proportion be the percent of anxiety or depression diagnosis out of total responses and non-responses.
+
+```{r}
+# Code in this block was written by Miranda
+
+# add column adjust_easy
+modif_allyears <- allyears |>
+  mutate(adjust_easy = case_when(
+    # adjust_easy = 1 if adjust_aca_1 is 1-3
+    adjust_aca_1 >= 1 & adjust_aca_1 <= 3 ~ 1,
+    # adjust_easy = 0 if adjust_aca_1 is 4-5
+    adjust_aca_1 >= 4 & adjust_aca_1 <= 6 ~ 0,
+    # else (if NA), keep as NA
+    TRUE ~ NA
+    )) 
+
+# dx_anx, dx_dep = 0 if NA
+modif_allyears$dx_anx[is.na(modif_allyears$dx_anx)] <- 0
+modif_allyears$dx_dep[is.na(modif_allyears$dx_dep)] <- 0
+
+```
+
+Then, we created a dataframe of the proportion of students who answered adjust_easy = 1 by out of the total number of students who responded to the question on adjust_aca_1 by year. NAs were dropped for adjust_easy (people who did not answer the question)
+
+We also created a dataframe for the proportion of adjust_easy by both year and region.
+
+```{r}
+# Code in this block was written by Miranda
+
+# proportion of adjust_easy by year
+prop_easy_yr <- modif_allyears |>
+  #drop NAs in adjust easy
+  drop_na(adjust_easy) |>
+  # group by year
+  group_by(survey_year) |>
+  # divide the counts of easy by total counts of adjust_easy
+  # sum works bc easy is counted as 1 while difficult is 0
+  summarize(prop_easy = sum(adjust_easy)/n())
+
+# proportion of adjust_easy by region and year
+prop_easy_geo <- modif_allyears |>
+  #drop NAs in adjust easy 
+  drop_na(adjust_easy) |>
+  # group by region
+  group_by(survey_year, inst_geo) |>
+  summarize(prop_easy = sum(adjust_easy)/n()) 
+```
+
+Next, we created a data frame for the proportion of anxiety diagnosis, dx_anx, out of the total number of responses and non-responses by year and a separate data frame for by year and region.
+
+We also added the count of dx_anx = 1 and the total count (dx_anx = 1 and dx_anx = 0 after turning NAs into 0) as separate columns.
+
+```{r}
+# Code in this block was written by Miranda
+
+# anxiety diagnosis by year
+prop_anx_yr <- modif_allyears |>
+  drop_na(dx_anx) |>
+  group_by(survey_year) |>
+  summarize(prop_anx = sum(dx_anx)/n(), 
+            anx = sum(dx_anx), 
+            total = n())
+
+# anxiety diagnosis by year and region
+prop_anx_geo <- modif_allyears |>
+  drop_na(dx_anx) |>
+  group_by(survey_year, inst_geo) |>
+  summarize(prop_anx = sum(dx_anx)/n(), 
+            anx =  sum(dx_anx), total = n())
+
+
+```
+
+We created a similar data frame for the proportion of depression diagnosis, dx_dep, out of the total number of responses and non-responses by year and a separate data frame for by year and region.
+
+We also added the count of dx_dep = 1 and the total count (dx_dep = 1 and dx_dep = 0 after turning NAs into 0) as separate columns.
+
+```{r}
+# Code in this block was written by Miranda
+
+# depression diagnosis by year
+prop_dep_yr <- modif_allyears |>
+  drop_na(dx_dep) |>
+  group_by(survey_year) |>
+  summarize(prop_dep = sum(dx_dep)/n(), 
+            dep =  sum(dx_dep), 
+            total = n())
+
+# depression diagnosis by year and region
+prop_dep_geo <- modif_allyears |>
+  drop_na(dx_dep) |>
+  group_by(survey_year, inst_geo) |>
+  summarize(prop_dep = sum(dx_dep)/n(), 
+            dep =  sum(dx_dep), total = n())
+
+```
