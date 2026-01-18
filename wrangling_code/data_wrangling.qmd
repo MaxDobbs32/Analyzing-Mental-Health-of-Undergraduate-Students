@@ -26,21 +26,34 @@ As a first step, the code below reads CSV files containing survey data from the 
 # Code in this block was written by Henry
 
 # Read all csv files
-year_2007_2013 <- read.csv("../initial_data/HMS_2007-2013_Aggregate.csv")
-year_2013_2014 <- read.csv("../initial_data/HMS_2013-2014_PUBLIC.csv")
-year_2016_2017 <- read.csv("../initial_data/HMS_2016-2017_PUBLIC.csv")
-year_2017_2018 <- read.csv("../initial_data/HMS_2017-2018_PUBLIC_instchars.csv")
-year_2018_2019 <- read.csv("../initial_data/HMS_2018-2019_PUBLIC_instchars.csv")
-year_2019_2020 <- read.csv("../initial_data/HMS_2019-2020_PUBLIC_instchars.csv")
-year_2020_2021 <- read.csv("../initial_data/HMS_2020-2021_PUBLIC_instchars.csv")
-year_2021_2022 <- read.csv("../initial_data/HMS_2021-2022_PUBLIC_instchars.csv")
-year_2022_2023 <- read.csv("../initial_data/HMS_2022-2023_PUBLIC_instchars.csv")
-year_2023_2024 <- read.csv("../initial_data/HMS_2023-2024_PUBLIC_instchars.csv")
-year_2024_2025 <- read.csv("../initial_data/HMS_2024-2025_PUBLIC_instchars.csv")
+year_2007_2013 <-
+  read.csv("../initial_data/HMS_2007-2013_Aggregate.csv")
+year_2013_2014 <-
+  read.csv("../initial_data/HMS_2013-2014_PUBLIC.csv")
+year_2016_2017 <-
+  read.csv("../initial_data/HMS_2016-2017_PUBLIC.csv")
+year_2017_2018 <-
+  read.csv("../initial_data/HMS_2017-2018_PUBLIC_instchars.csv")
+year_2018_2019 <-
+  read.csv("../initial_data/HMS_2018-2019_PUBLIC_instchars.csv")
+year_2019_2020 <-
+  read.csv("../initial_data/HMS_2019-2020_PUBLIC_instchars.csv")
+year_2020_2021 <-
+  read.csv("../initial_data/HMS_2020-2021_PUBLIC_instchars.csv")
+year_2021_2022 <-
+  read.csv("../initial_data/HMS_2021-2022_PUBLIC_instchars.csv")
+year_2022_2023 <-
+  read.csv("../initial_data/HMS_2022-2023_PUBLIC_instchars.csv")
+year_2023_2024 <-
+  read.csv("../initial_data/HMS_2023-2024_PUBLIC_instchars.csv")
+year_2024_2025 <-
+  read.csv("../initial_data/HMS_2024-2025_PUBLIC_instchars.csv")
 
 # Read all xlsx files
-year_2014_2015 <- read.xlsx("../initial_data/HMS_2014-2015_PUBLIC.xlsx", 1)
-year_2015_2016 <- read.xlsx("../initial_data/HMS_2015-2016_PUBLIC.xlsx", 1)
+year_2014_2015 <-
+  read.xlsx("../initial_data/HMS_2014-2015_PUBLIC.xlsx", 1)
+year_2015_2016 <-
+  read.xlsx("../initial_data/HMS_2015-2016_PUBLIC.xlsx", 1)
 ```
 
 After the data frames are pulled, the code below saves them into the RData file "data.RData", where they will be much quicker to retrieve from the hard drive.
@@ -51,7 +64,8 @@ After the data frames are pulled, the code below saves them into the RData file 
 # Code in this block was written by Henry and Maxine
 
 # Save the files for later
-saveRDS(year_2007_2013, file = "../partially_wrangled_data/year_2007_2013.rds")
+saveRDS(year_2007_2013,
+        file = "../partially_wrangled_data/year_2007_2013.rds")
 saveRDS(year_2013_2014,
         file = "../partially_wrangled_data/year_2013_2014.rds")
 saveRDS(year_2014_2015,
@@ -499,9 +513,12 @@ avg_adjust_aca_assoc <- anx_aca_assoc |>
 avg_adjust_aca_bach <- anx_aca_bach |>
   full_join(dep_aca_bach)
 
-saveRDS(avg_adjust_aca_undergrad, "../shiny_app/final_wrangled_data/avg_adjust_aca_undergrad.rds")
-saveRDS(avg_adjust_aca_assoc, "../shiny_app/final_wrangled_data/avg_adjust_aca_assoc.rds")
-saveRDS(avg_adjust_aca_bach, "../shiny_app/final_wrangled_data/avg_adjust_aca_bach.rds")
+saveRDS(avg_adjust_aca_undergrad,
+        "../shiny_app/final_wrangled_data/avg_adjust_aca_undergrad.rds")
+saveRDS(avg_adjust_aca_assoc,
+        "../shiny_app/final_wrangled_data/avg_adjust_aca_assoc.rds")
+saveRDS(avg_adjust_aca_bach,
+        "../shiny_app/final_wrangled_data/avg_adjust_aca_bach.rds")
 ```
 
 A new variable, *adjust_easy* is created in a new data frame, modif_allyears. It takes the value of 1 if adjust_aca_1 is between 1-3 and a value of 0 if it is between 4-6. If adjust_aca_1 is NA, *adjust_easy* will also be NA.
@@ -525,7 +542,6 @@ modif_allyears <- allyears |>
 # dx_anx, dx_dep = 0 if NA
 modif_allyears$dx_anx[is.na(modif_allyears$dx_anx)] <- 0
 modif_allyears$dx_dep[is.na(modif_allyears$dx_dep)] <- 0
-
 ```
 
 Then, we created a dataframe of the proportion of students who answered adjust_easy = 1 by out of the total number of students who responded to the question on adjust_aca_1 by year. NAs were dropped for adjust_easy (people who did not answer the question)
@@ -649,7 +665,8 @@ We only save `prop_yr_all` into its own RDS which is used for our bar graph in o
 ```{r}
 # Code in this block was written by Henry
 
-saveRDS(prop_yr_all, file = "../final_wrangled_data/prop_yr_all.rds")
+saveRDS(prop_yr_all,
+        file = "../shiny_app/final_wrangled_data/prop_yr_all.rds")
 ```
 
 The following code reads in the shapefile that consists of all US states and transforms it so that it has the right projection (doesn't generate issue with inconsistent datum). We group states together to form 9 different regions based on the inst_geo variable in the HMS codebook. We had to join together the dataframe consisting of the polygon shapes for the states in the shapefile and our previously-made dataframe that had the proportion of dx_anx, dx_dep, and adjust_easy by regions so that we can plot the region shapes and fill them in by the proportion value of the selected variable.
@@ -658,7 +675,7 @@ The following code reads in the shapefile that consists of all US states and tra
 # Code in this block was written by Miranda
 
 # read in shapefile
-states_sf <- read_sf("../shinyapp/cb_2018_us_state_500k.shp") %>%
+states_sf <- read_sf("../shiny_app/cb_2018_us_state_500k.shp") %>%
   # solves sf layer has inconsistent datum issue
   sf::st_transform('+proj=longlat +datum=WGS84')
 
@@ -909,33 +926,60 @@ combinedr9_dep <- prop_dep_geo |>
   filter(var == "Depression")
 
 # save as RDS files
-saveRDS(combinedgeo, file = "../shiny_app/final_wrangled_data/combinedgeo.rds")
-saveRDS(combinedr1_ease, file = "../shiny_app/final_wrangled_data/combinedr1_ease.rds")
-saveRDS(combinedr2_ease, file = "../shiny_app/final_wrangled_data/combinedr2_ease.rds")
-saveRDS(combinedr3_ease, file = "../shiny_app/final_wrangled_data/combinedr3_ease.rds")
-saveRDS(combinedr4_ease, file = "../shiny_app/final_wrangled_data/combinedr4_ease.rds")
-saveRDS(combinedr5_ease, file = "../shiny_app/final_wrangled_data/combinedr5_ease.rds")
-saveRDS(combinedr6_ease, file = "../shiny_app/final_wrangled_data/combinedr6_ease.rds")
-saveRDS(combinedr7_ease, file = "../shiny_app/final_wrangled_data/combinedr7_ease.rds")
-saveRDS(combinedr8_ease, file = "../shiny_app/final_wrangled_data/combinedr8_ease.rds")
-saveRDS(combinedr9_ease, file = "../shiny_app/final_wrangled_data/combinedr9_ease.rds")
-saveRDS(combinedr1_anx, file = "../shiny_app/final_wrangled_data/combinedr1_anx.rds")
-saveRDS(combinedr2_anx, file = "../shiny_app/final_wrangled_data/combinedr2_anx.rds")
-saveRDS(combinedr3_anx, file = "../shiny_app/final_wrangled_data/combinedr3_anx.rds")
-saveRDS(combinedr4_anx, file = "../shiny_app/final_wrangled_data/combinedr4_anx.rds")
-saveRDS(combinedr5_anx, file = "../shiny_app/final_wrangled_data/combinedr5_anx.rds")
-saveRDS(combinedr6_anx, file = "../shiny_app/final_wrangled_data/combinedr6_anx.rds")
-saveRDS(combinedr7_anx, file = "../shiny_app/final_wrangled_data/combinedr7_anx.rds")
-saveRDS(combinedr8_anx, file = "../shiny_app/final_wrangled_data/combinedr8_anx.rds")
-saveRDS(combinedr9_anx, file = "../shiny_app/final_wrangled_data/combinedr9_anx.rds")
-saveRDS(combinedr1_dep, file = "../shiny_app/final_wrangled_data/combinedr1_dep.rds")
-saveRDS(combinedr2_dep, file = "../shiny_app/final_wrangled_data/combinedr2_dep.rds")
-saveRDS(combinedr3_dep, file = "../shiny_app/final_wrangled_data/combinedr3_dep.rds")
-saveRDS(combinedr4_dep, file = "../shiny_app/final_wrangled_data/combinedr4_dep.rds")
-saveRDS(combinedr5_dep, file = "../shiny_app/final_wrangled_data/combinedr5_dep.rds")
-saveRDS(combinedr6_dep, file = "../shiny_app/final_wrangled_data/combinedr6_dep.rds")
-saveRDS(combinedr7_dep, file = "../shiny_app/final_wrangled_data/combinedr7_dep.rds")
-saveRDS(combinedr8_dep, file = "../shiny_app/final_wrangled_data/combinedr8_dep.rds")
-saveRDS(combinedr9_dep, file = "../shiny_app/final_wrangled_data/combinedr9_dep.rds")
-
+saveRDS(combinedgeo,
+        file = "../shiny_app/final_wrangled_data/combinedgeo.rds")
+saveRDS(combinedr1_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr1_ease.rds")
+saveRDS(combinedr2_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr2_ease.rds")
+saveRDS(combinedr3_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr3_ease.rds")
+saveRDS(combinedr4_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr4_ease.rds")
+saveRDS(combinedr5_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr5_ease.rds")
+saveRDS(combinedr6_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr6_ease.rds")
+saveRDS(combinedr7_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr7_ease.rds")
+saveRDS(combinedr8_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr8_ease.rds")
+saveRDS(combinedr9_ease,
+        file = "../shiny_app/final_wrangled_data/combinedr9_ease.rds")
+saveRDS(combinedr1_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr1_anx.rds")
+saveRDS(combinedr2_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr2_anx.rds")
+saveRDS(combinedr3_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr3_anx.rds")
+saveRDS(combinedr4_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr4_anx.rds")
+saveRDS(combinedr5_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr5_anx.rds")
+saveRDS(combinedr6_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr6_anx.rds")
+saveRDS(combinedr7_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr7_anx.rds")
+saveRDS(combinedr8_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr8_anx.rds")
+saveRDS(combinedr9_anx,
+        file = "../shiny_app/final_wrangled_data/combinedr9_anx.rds")
+saveRDS(combinedr1_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr1_dep.rds")
+saveRDS(combinedr2_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr2_dep.rds")
+saveRDS(combinedr3_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr3_dep.rds")
+saveRDS(combinedr4_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr4_dep.rds")
+saveRDS(combinedr5_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr5_dep.rds")
+saveRDS(combinedr6_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr6_dep.rds")
+saveRDS(combinedr7_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr7_dep.rds")
+saveRDS(combinedr8_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr8_dep.rds")
+saveRDS(combinedr9_dep,
+        file = "../shiny_app/final_wrangled_data/combinedr9_dep.rds")
 ```
