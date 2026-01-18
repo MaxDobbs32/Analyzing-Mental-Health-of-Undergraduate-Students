@@ -11,13 +11,6 @@ editor: visual
 library(kableExtra)
 ```
 
-```{=html}
-<!--
-Change the title to "Executive Summary for YOUR PROJECT TITLE", 
-and update the author field with your group name
--->
-```
-
 ## Insights into Topic
 
 <!-- What is your topic? Why was it interesting to you? What motivated it for you? -->
