@@ -11,7 +11,7 @@ The topic of our ShinyApp is mental health in US undergraduate students. Initial
 
 ## Data
 
-Our data came from the Healthy Minds Network surveys conducted on mental health of US college students from 2007 - 2025. We primarily focused on undergraduates that were pursuing Associate's or Bachelor's degrees, in particular their academic adjustment and whether they were impacted by anxiety/depression.
+Our data came from the Healthy Minds Network surveys conducted on mental health of US college students from 2007 - 2025. We primarily focused on undergraduates that were pursuing associate's or bachelor's degrees, in particular their academic adjustment and whether they were impacted by anxiety/depression.
 
 We used adjust_aca_1, which was a score indicating how difficult a student found it to adjust to the academic demands of their school. We created an indicator variable, adjust_easy, using adjust_aca_1 where a "1" would represent that the student found it easy to adjust to the academic demands (adjust_aca_1 values 1-3) and "0" if it was difficult (adjust_aca_1 values 4-6). And we allow users to specify degree type, specifically the highest degree pursued by students.
 
