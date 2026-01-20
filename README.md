@@ -28,6 +28,6 @@ R must be installed to run any code in this project. In addition, the following 
  - sf
 
 ## Notes on Organization of this Repository
-The data files from the Healthy Minds study are too large to be stored in this GitHub repository. While not strictly necessary, if you wish to run all code blocks in data_wrangling.qmd, you must add them manually in the initial_data subfolder. You may find these files on Google Drive, linked here: https://drive.google.com/file/d/1HHy2IRv18xQVeYTIVuPmxtor8LV9sWwy/view?usp=drive_link
+The data files from the Healthy Minds study are too large to be stored in this GitHub repository. While unnecessary, running all code blocks in data_wrangling.qmd means adding them manually in the initial_data subfolder. If you wish to do so, you can either reach out to Maxine for access to these files or make a request to the Healthy Minds Network here: https://forms.gle/g2BfiQyKXVguGNQAA.
 
 You may notice that the final_wrangled_data subfolder containing the wrangled data is itself located in the shiny_app subfolder. This was required to publish the Shiny application.
