@@ -14,11 +14,13 @@ library(tidyverse)
 library(sf)
 ```
 
-We obtained the data from Healthy Minds Network project, and it was shared with us as a folder of cvs files in Dropbox after we requested the dataset through the provided Google Form on the official website of Healthy Minds Network. We downloaded the folder consisting of the entire set of csv files onto Google Drive on 10/8/25.
+We obtained the data from Healthy Minds Network project, and it was shared with us as a folder of cvs files in Dropbox after we requested the dataset through the provided Google Form on the official website of Healthy Minds Network. We downloaded the folder consisting of the entire set of CSV files onto Google Drive on 10/8/25.
 
 Full citation: Healthy Minds Network (2007-2025). Healthy Minds Study among Colleges and Universities, 2007-2025 datasets. Healthy Minds Network, University of Michigan, University of California Los Angeles, Boston University, and Wayne State University. https://healthymindsnetwork.org/research/data-for-researchers.
 
-As a first step, the code below reads CSV files containing survey data from the Healthy Minds Network and creates R data frames from them.
+Note that, before the code block loading in all_years_organized.RData, all blocks of code are set not to run automatically. Running them takes a very long time and only needs to be done once; given that all_years_organized.RData has already been created and stored in this project, running these blocks of code is unnecessary. If you wish to run them, you can do so manually with data_wrangling.qmd opened in RStudio.
+
+As a first step, the code below reads CSV files containing survey data from the Healthy Minds Network and creates R data frames from them. If you wish to run it, you must make sure all data from the Healthy Minds study is in the initial_data subfolder. (See README.md)
 
 ```{r}
 #| eval: false
@@ -56,14 +58,14 @@ year_2015_2016 <-
   read.xlsx("../initial_data/HMS_2015-2016_PUBLIC.xlsx", 1)
 ```
 
-After the data frames are pulled, the code below saves them into the RData file "data.RData", where they will be much quicker to retrieve from the hard drive.
+After the data frames are pulled, the code below saves each of them into an RDS file in the partially_wrangled_data subfolder, where they will be much quicker to retrieve from the hard drive.
 
 ```{r}
 #| eval: false
 
 # Code in this block was written by Henry and Maxine
 
-# Save the files for later
+# Save data pulled from the files for later
 saveRDS(year_2007_2013,
         file = "../partially_wrangled_data/year_2007_2013.rds")
 saveRDS(year_2013_2014,
@@ -92,7 +94,7 @@ saveRDS(year_2024_2025,
         file = "../partially_wrangled_data/year_2024_2025.rds")
 ```
 
-This code loads the data frames of the form `year_20XX_20XX` from data.RData.
+This code loads the data frames of the form `year_20XX_20XX` from their corresponding RDS files.
 
 ```{r}
 #| eval: false
@@ -415,7 +417,7 @@ save(allyears,
      file = "../partially_wrangled_data/all_years_organized.RData")
 ```
 
-Loads back all years data structure from allyears.RData. This is the first code that runs for rendering a pdf and in general, as it is more efficient to store `allyears` once it is created and then retrieve it, rather than run the time-consuming code above more than once.
+Loads back the `allyears` data structure from all_years_organized.RData. This is the first code that runs for rendering a pdf and in general, as it is more efficient to store `allyears` once it is created and then retrieve it, rather than run the time-consuming code above more than once.
 
 ```{r}
 # Code in this block was written by Henry
@@ -424,6 +426,8 @@ load(file = "../partially_wrangled_data/all_years_organized.RData")
 ```
 
 The following code creates six summary tables where academic adjustment scores (`adjust_aca_1`) are averaged among all people with specified anxiety scores (`anx_score`) or depression scores (`deprawsc`), with three tables for each. The tables are further separated for each institution type (`degree_type`) by degree it confers: associate's degree, bachelor's degree, and total. The data is also filtered such that students with NA values for anxiety or depression scores and academic adjustment scores are not included. Lastly, the six data frames are joined into three based on degree, which is then stored in the corresponding RDS files.
+
+Note that the `final_wrangled_data` subfolder that contains these RDS files, as well as all future RDS files saved, is itself located in the `shiny_app` subfolder. This was required for us to publish our Shiny application.
 
 ```{r}
 # Code in this block was written by Maxine
