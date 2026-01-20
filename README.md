@@ -1,6 +1,6 @@
 # Analyzing Mental Health and College Difficulty
 
-This project concerns the relationship between anxiety, depression, and difficulty adjusting to college as reported by undergraduate students across the United States. We use interactive graphs in a Shiny application to uncover various relationships between these variables. More details, as well as our analyses, can be found in the Shiny executive summary. The Shiny application itself can be found at https://69a3lt-miranda-yang.shinyapps.io/Mental_Health_of_Undergrad_Students/.
+This project concerns the relationship between anxiety, depression, and difficulty adjusting to college as reported by undergraduate students across the United States. Here we use interactive graphs in a Shiny application to uncover various relationships between these variables. More details, as well as our analyses, can be found in the Shiny executive summary. The Shiny application itself can be found at https://69a3lt-miranda-yang.shinyapps.io/Mental_Health_of_Undergrad_Students/.
 
 The data comes from the Healthy Minds Study among Colleges and Universities, conducted by the Healthy Minds Network. The study asks students across the United States to self report their mental health symptoms and status, along with struggles they may be facing and other demographic factors.
 
