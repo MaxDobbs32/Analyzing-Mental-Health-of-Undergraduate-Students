@@ -1,4 +1,4 @@
-# Analyzing Mental Health of Undergraduate Students
+# Analyzing Mental Health of Undergrads
 
 This project concerns the relationship between anxiety, depression, and difficulty adjusting to college as reported by undergraduate students across the United States. Here we use interactive graphs in a Shiny application to uncover various relationships between these variables. More details, as well as our analyses, can be found in the Shiny executive summary. The Shiny application itself can be found at https://69a3lt-miranda-yang.shinyapps.io/Mental_Health_of_Undergrad_Students/.
 
