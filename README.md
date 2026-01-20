@@ -9,7 +9,7 @@ Citation: Healthy Minds Network (2007-2025). Healthy Minds Study among Colleges 
 This was a collaborative project by Henry Sun, Maxine Dobbs, and Miranda Yang. Credit is given for each section of code as to who wrote it.
 
 ## Dependencies
-R must be installed to run any code in this project. RStudio is recommended. In addition, the following packages are required to run the given programs.
+R must be installed to run any code in this project. RStudio is recommended for opening and running code. In addition, the following packages are required to run the given programs.
 
 #### Shiny application
  - shiny
