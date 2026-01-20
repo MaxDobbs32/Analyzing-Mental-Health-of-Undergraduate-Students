@@ -5,12 +5,6 @@ format: pdf
 editor: visual
 ---
 
-```{r}
-#| include: false
-
-library(kableExtra)
-```
-
 ## Insights into Topic
 
 <!-- What is your topic? Why was it interesting to you? What motivated it for you? -->
