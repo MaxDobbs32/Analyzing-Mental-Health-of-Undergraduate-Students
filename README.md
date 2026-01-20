@@ -6,7 +6,7 @@ The data comes from the Healthy Minds Study among Colleges and Universities, con
 
 Citation: Healthy Minds Network (2007-2025). Healthy Minds Study among Colleges and Universities, 2007-2025 datasets. Healthy Minds Network, University of Michigan, University of California Los Angeles, Boston University, and Wayne State University. https://healthymindsnetwork.org/research/data-for-researchers.
 
-### Dependencies
+## Dependencies
 R must be installed to run any code in this project. In addition, the following packages are required to run the given programs.
 
 #### Shiny application
@@ -27,7 +27,7 @@ R must be installed to run any code in this project. In addition, the following 
  - tidyverse
  - sf
 
-### Notes on Organization of this Repository
+## Notes on Organization of this Repository
 The data files from the Healthy Minds study are too large to be stored in this GitHub repository. While not strictly necessary, if you wish to run all code blocks in data_wrangling.qmd, you must add them manually in the initial_data subfolder. You may find these files on Google Drive, linked here: https://drive.google.com/file/d/1HHy2IRv18xQVeYTIVuPmxtor8LV9sWwy/view?usp=drive_link
 
 You may notice that the final_wrangled_data subfolder containing the wrangled data is itself located in the shiny_app subfolder. This was required to publish the Shiny application.
