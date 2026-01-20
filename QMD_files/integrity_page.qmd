@@ -1,18 +1,18 @@
 ---
-title: "Shiny Project - Integrity Page"
+title: "Academic Integrity Page"
 author: "Henry Sun, Maxine Dobbs, and Miranda Yang"
 date: "11/1/25"
 format: pdf
 editor: visual
 ---
 
-# Data Sources
+# Data Source
 
-All data sources must be listed here with full citations. For websites, list the URL, as much information about the page as you can find, and extremely importantly, the date of access / download.
+Data from HMS stored in Google Drive on 10/8/25: <https://drive.google.com/file/d/1HHy2IRv18xQVeYTIVuPmxtor8LV9sWwy/view?usp=drive_link.> (If you need access, contact Maxine at maxdobbs32\@gmail.com.)
 
-\newpage
+Full citation: Healthy Minds Network (2007-2025). Healthy Minds Study among Colleges and Universities, 2007-2025 datasets. Healthy Minds Network, University of Michigan, University of California Los Angeles, Boston University, and Wayne State University. <https://healthymindsnetwork.org/research/data-for-researchers.>
 
-# Practicing Academic Integrity
+# Citations
 
 If your group worked with others (beyond your groupmates) or used resources outside of provided course material, such as Generative AI, (anything besides our textbook, course materials in the repo, labs, R help menu) to help complete this assignment, please acknowledge them below using a bulleted list. Remember that according to our class framework, if you engage with Generative AI tools, the tool and date of use must be listed here, and then a complete record of the chat history must be appended to the assignment.
 
@@ -23,10 +23,6 @@ If your group worked with others (beyond your groupmates) or used resources outs
 -   Erika, a fellow student at Amherst College, helped us understand that the server and UI need to be in the same file.
 
 *We used the following sources to help complete this assignment:*
-
--   Data sources from HMS downloaded on 10/8/25 to Google Drive: <https://drive.google.com/file/d/1HHy2IRv18xQVeYTIVuPmxtor8LV9sWwy/view?usp=drive_link.> (If you need access, contact Maxine at maxdobbs32\@gmail.com.)
-
-    Full citation: Healthy Minds Network (2007-2025). Healthy Minds Study among Colleges and Universities, 2007-2025 datasets. Healthy Minds Network, University of Michigan, University of California Los Angeles, Boston University, and Wayne State University. <https://healthymindsnetwork.org/research/data-for-researchers.>
 
 -   Guide on how to save datasets in order to reduce file reading time (10/24/25): <https://www.r-bloggers.com/2019/05/how-to-save-and-load-datasets-in-r-an-overview/>
 
