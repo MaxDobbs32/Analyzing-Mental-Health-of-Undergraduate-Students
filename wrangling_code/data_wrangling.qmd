@@ -1,5 +1,6 @@
 ---
-title: "Shiny Project - Data Wrangling"
+title: "Data Wrangling"
+author: Henry Sun, Maxine Dobbs, and Miranda Yang
 format: pdf
 editor: visual
 ---
@@ -14,7 +15,7 @@ library(tidyverse)
 library(sf)
 ```
 
-We obtained the data from Healthy Minds Network project, and it was shared with us as a folder of cvs files in Dropbox after we requested the dataset through the provided Google Form on the official website of Healthy Minds Network. We downloaded the folder consisting of the entire set of CSV files onto Google Drive on 10/8/25.
+We obtained the data from Healthy Minds Network project, and it was shared with us as a folder of CSV and Excel files in Dropbox after we requested the dataset through the provided Google Form on the official website of Healthy Minds Network. We downloaded the folder consisting of the entire set of files onto Google Drive on 10/8/25.
 
 Full citation: Healthy Minds Network (2007-2025). Healthy Minds Study among Colleges and Universities, 2007-2025 datasets. Healthy Minds Network, University of Michigan, University of California Los Angeles, Boston University, and Wayne State University. https://healthymindsnetwork.org/research/data-for-researchers.
 
@@ -27,7 +28,7 @@ As a first step, the code below reads CSV files containing survey data from the 
 
 # Code in this block was written by Henry
 
-# Read all csv files
+# Read all CSV files
 year_2007_2013 <-
   read.csv("../initial_data/HMS_2007-2013_Aggregate.csv")
 year_2013_2014 <-
@@ -51,82 +52,47 @@ year_2023_2024 <-
 year_2024_2025 <-
   read.csv("../initial_data/HMS_2024-2025_PUBLIC_instchars.csv")
 
-# Read all xlsx files
+# Read all XLSX files
 year_2014_2015 <-
   read.xlsx("../initial_data/HMS_2014-2015_PUBLIC.xlsx", 1)
 year_2015_2016 <-
   read.xlsx("../initial_data/HMS_2015-2016_PUBLIC.xlsx", 1)
 ```
 
-After the data frames are pulled, the code below saves each of them into an RDS file in the partially_wrangled_data subfolder, where they will be much quicker to retrieve from the hard drive.
+After the data frames are pulled, the code below saves them into the RData file "all_years_untidy.RData", where they will be much quicker to retrieve from the hard drive.
 
 ```{r}
 #| eval: false
 
-# Code in this block was written by Henry and Maxine
+# Code in this block was written by Henry
 
 # Save data pulled from the files for later
-saveRDS(year_2007_2013,
-        file = "../partially_wrangled_data/year_2007_2013.rds")
-saveRDS(year_2013_2014,
-        file = "../partially_wrangled_data/year_2013_2014.rds")
-saveRDS(year_2014_2015,
-        file = "../partially_wrangled_data/year_2014_2015.rds")
-saveRDS(year_2015_2016,
-        file = "../partially_wrangled_data/year_2015_2016.rds")
-saveRDS(year_2016_2017,
-        file = "../partially_wrangled_data/year_2016_2017.rds")
-saveRDS(year_2017_2018,
-        file = "../partially_wrangled_data/year_2017_2018.rds")
-saveRDS(year_2018_2019,
-        file = "../partially_wrangled_data/year_2018_2019.rds")
-saveRDS(year_2019_2020,
-        file = "../partially_wrangled_data/year_2019_2020.rds")
-saveRDS(year_2020_2021,
-        file = "../partially_wrangled_data/year_2020_2021.rds")
-saveRDS(year_2021_2022,
-        file = "../partially_wrangled_data/year_2021_2022.rds")
-saveRDS(year_2022_2023,
-        file = "../partially_wrangled_data/year_2022_2023.rds") 
-saveRDS(year_2023_2024,
-        file = "../partially_wrangled_data/year_2023_2024.rds")
-saveRDS(year_2024_2025,
-        file = "../partially_wrangled_data/year_2024_2025.rds")
+save(
+  year_2007_2013, 
+  year_2013_2014, 
+  year_2014_2015,
+  year_2015_2016, 
+  year_2016_2017, 
+  year_2017_2018, 
+  year_2018_2019, 
+  year_2019_2020,
+  year_2020_2021,
+  year_2021_2022, 
+  year_2022_2023, 
+  year_2023_2024, 
+  year_2024_2025,
+  file = "../partially_wrangled_data/all_years_untidy.RData")
 ```
 
-This code loads the data frames of the form `year_20XX_20XX` from their corresponding RDS files.
+This code loads the data frames of the form `year_20XX_20XX` from "all_years_untidy.RData".
 
 ```{r}
 #| eval: false
 
-# Code in this block was written by Henry and Maxine
+# Code in this block was written by Henry
 
-year_2007_2013 <- 
-  readRDS("../partially_wrangled_data/year_2007_2013.rds")
-year_2013_2014 <-
-  readRDS("../partially_wrangled_data/year_2013_2014.rds")
-year_2014_2015 <-
-  readRDS("../partially_wrangled_data/year_2014_2015.rds")
-year_2015_2016 <-
-  readRDS("../partially_wrangled_data/year_2015_2016.rds")
-year_2016_2017 <-
-  readRDS("../partially_wrangled_data/year_2016_2017.rds")
-year_2017_2018 <-
-  readRDS("../partially_wrangled_data/year_2017_2018.rds")
-year_2018_2019 <-
-  readRDS("../partially_wrangled_data/year_2018_2019.rds")
-year_2019_2020 <-
-  readRDS("../partially_wrangled_data/year_2019_2020.rds")
-year_2020_2021 <-
-  readRDS("../partially_wrangled_data/year_2020_2021.rds")
-year_2021_2022 <-
-  readRDS("../partially_wrangled_data/year_2021_2022.rds")
-year_2022_2023 <-
-  readRDS("../partially_wrangled_data/year_2022_2023.rds")
-year_2023_2024 <-
-  readRDS("../partially_wrangled_data/year_2023_2024.rds")
-year_2024_2025 <-
-  readRDS("../partially_wrangled_data/year_2024_2025.rds")
+# Load the files
+load(file = "../partially_wrangled_data/all_years_untidy.RData")
 ```
 
 For each year, we create a new data frame of the form `syear_20XX_20XX` that only includes variables we need. Furthermore, in the case of `survey_year`, we make sure it is always recorded as a number both for consistency's sake and so future visualizations can order data points over time.
@@ -195,6 +161,8 @@ syear_2024_2025 <- year_2024_2025 |>
   select(any_of(c(variables, degrees))) |>
   mutate(survey_year = 2025)
 ```
+
+\newpage
 
 New data frames of the form `fyear_20XX_20XX` are created from those of the form `syear_20XX_20XX` from the last code block. Values meaning the same thing under a column are recorded differently by academic year. The code below mutates variables such that:
 
@@ -417,7 +385,7 @@ save(allyears,
      file = "../partially_wrangled_data/all_years_organized.RData")
 ```
 
-Loads back the `allyears` data structure from all_years_organized.RData. This is the first code that runs for rendering a pdf and in general, as it is more efficient to store `allyears` once it is created and then retrieve it, rather than run the time-consuming code above more than once.
+Loads back the `allyears` data structure from "all_years_organized.RData". This is the first code that runs for rendering a pdf and in general, as it is more efficient to store `allyears` once it is created and then retrieve it, rather than run the time-consuming code above more than once.
 
 ```{r}
 # Code in this block was written by Henry
@@ -509,13 +477,22 @@ dep_aca_bach <- allyears |>
   mutate("Degree" = "Bachelor's")
 
 avg_adjust_aca_undergrad <- anx_aca_total |>
-  full_join(dep_aca_total)
+  full_join(
+    dep_aca_total,
+    by = join_by("Avg Academic Adjustment", "Mental Condition", "Degree")
+  )
 
 avg_adjust_aca_assoc <- anx_aca_assoc |>
-  full_join(dep_aca_assoc)
+  full_join(
+    dep_aca_assoc,
+    by = join_by("Avg Academic Adjustment", "Mental Condition", "Degree")
+  )
 
 avg_adjust_aca_bach <- anx_aca_bach |>
-  full_join(dep_aca_bach)
+  full_join(
+    dep_aca_bach,
+    by = join_by("Avg Academic Adjustment", "Mental Condition", "Degree")
+  )
 
 saveRDS(avg_adjust_aca_undergrad,
         "../shiny_app/final_wrangled_data/avg_adjust_aca_undergrad.rds")
@@ -525,9 +502,9 @@ saveRDS(avg_adjust_aca_bach,
         "../shiny_app/final_wrangled_data/avg_adjust_aca_bach.rds")
 ```
 
-A new variable, *adjust_easy* is created in a new data frame, modif_allyears. It takes the value of 1 if adjust_aca_1 is between 1-3 and a value of 0 if it is between 4-6. If adjust_aca_1 is NA, *adjust_easy* will also be NA.
+A new variable, `adjust_easy`, is created in a new data frame, `modif_allyears`. It takes the value of 1 if `adjust_aca_1` is between 1-3 and a value of 0 if it is between 4-6. If `adjust_aca_1` is NA, `adjust_easy` will also be NA.
 
-Since there is an issue with the proportion of anxiety and depression being 100% in certain years, we will turn NAs into 0 in columns dx_anx and dx_dep for all years and make the proportion be the percent of anxiety or depression diagnosis out of total responses and non-responses.
+Since there is an issue with the proportion of anxiety and depression being 100% in certain years, we will turn NAs into 0 in columns `dx_anx` and `dx_dep` for all years and make the proportion be the percent of anxiety or depression diagnosis out of total responses and non-responses.
 
 ```{r}
 # Code in this block was written by Miranda
@@ -548,9 +525,11 @@ modif_allyears$dx_anx[is.na(modif_allyears$dx_anx)] <- 0
 modif_allyears$dx_dep[is.na(modif_allyears$dx_dep)] <- 0
 ```
 
-Then, we created a dataframe of the proportion of students who answered adjust_easy = 1 by out of the total number of students who responded to the question on adjust_aca_1 by year. NAs were dropped for adjust_easy (people who did not answer the question)
+\newpage
 
-We also created a dataframe for the proportion of adjust_easy by both year and region. For the data frame on region, we filter for years greater or equal to 2018 since in the years before that, there were a lot of missing data for regions.
+Then, we created a dataframe of the proportion of students who answered `adjust_easy` = 1 out of the total number of students who responded to the question on `adjust_aca_1` by year. NAs were dropped for `adjust_easy` (people who did not answer the question).
+
+We also created a dataframe for the proportion of `adjust_easy` by both year and region. For the data frame on region, we filter for years greater or equal to 2018 since, in the years before that, there were a lot of missing data for regions.
 
 ```{r}
 # Code in this block was written by Miranda (except one line as noted)
@@ -578,9 +557,11 @@ prop_easy_geo <- modif_allyears |>
   summarize(prop_easy = sum(adjust_easy)/n())
 ```
 
-Next, we created a data frame for the proportion of anxiety diagnosis, dx_anx, out of the total number of responses and non-responses by year and a separate data frame for by year and region.
+\newpage
 
-We also added the count of dx_anx = 1 and the total count (dx_anx = 1 and dx_anx = 0 after turning NAs into 0) as separate columns.
+Next, we created a data frame for the proportion of anxiety diagnosis, `dx_anx`, out of the total number of responses and non-responses by year and a separate data frame for by year and region.
+
+We also added the count of `dx_anx` = 1 and the total count (`dx_anx` = 1 and `dx_anx` = 0 after turning NAs into 0s) as separate columns.
 
 ```{r}
 # Code in this block was written by Miranda (except one line as noted)
@@ -605,9 +586,11 @@ prop_anx_geo <- modif_allyears |>
             anx =  sum(dx_anx), total = n())
 ```
 
-We created a similar data frame for the proportion of depression diagnosis, dx_dep, out of the total number of responses and non-responses by year and a separate data frame for by year and region.
+\newpage
 
-We also added the count of dx_dep = 1 and the total count (dx_dep = 1 and dx_dep = 0 after turning NAs into 0) as separate columns.
+We created a similar data frame for the proportion of depression diagnosis, `dx_dep`, out of the total number of responses and non-responses by year and a separate data frame for by year and region.
+
+We also added the count of `dx_dep` = 1 and the total count (`dx_dep` = 1 and `dx_dep` = 0 after turning NAs into 0s) as separate columns.
 
 ```{r}
 # Code in this block was written by Miranda (except one line as noted)
@@ -632,7 +615,9 @@ prop_dep_geo <- modif_allyears |>
             dep =  sum(dx_dep), total = n())
 ```
 
-The code that follows joins the `prop_easy_yr`, `prop_anx_yr`, and `prop_dep_yr` data frames into one, and the `prop_easy_geo`, `prop_anx_geo`, and `prop_dep_geo` data frames into one. This is important for later wrangling and when we later build visualizations from the wrangled data.
+\newpage
+
+The code that follows joins the `prop_easy_yr`, `prop_anx_yr`, and `prop_dep_yr` data frames into one and the `prop_easy_geo`, `prop_anx_geo`, and `prop_dep_geo` data frames into one. This is important for later wrangling and when we build visualizations from the wrangled data.
 
 ```{r}
 # Code in this block was written by Maxine
@@ -655,16 +640,16 @@ prop_dep_geo <- prop_dep_geo |>
 
 # Joins "proportion by year" data sets together
 prop_yr_all <- prop_easy_yr |>
-  full_join(prop_anx_yr) |>
-  full_join(prop_dep_yr)
+  full_join(prop_anx_yr, by = join_by(survey_year, degree_type, var)) |>
+  full_join(prop_dep_yr, by = join_by(survey_year, degree_type, var, total))
 
 # Joins "proportion by year and region" data sets together
 prop_geo_all <- prop_easy_geo |>
-  full_join(prop_anx_geo) |>
-  full_join(prop_dep_geo)
+  full_join(prop_anx_geo, by = join_by(survey_year, inst_geo, var)) |>
+  full_join(prop_dep_geo, by = join_by(survey_year, inst_geo, var, total))
 ```
 
-We only save `prop_yr_all` into its own RDS which is used for our bar graph in our shinyapp.
+We only save `prop_yr_all` into its own RDS file, which is used for our bar graph in our Shiny app.
 
 ```{r}
 # Code in this block was written by Henry
@@ -673,7 +658,9 @@ saveRDS(prop_yr_all,
         file = "../shiny_app/final_wrangled_data/prop_yr_all.rds")
 ```
 
-The following code reads in the shapefile that consists of all US states and transforms it so that it has the right projection (doesn't generate issue with inconsistent datum). We group states together to form 9 different regions based on the inst_geo variable in the HMS codebook. We had to join together the dataframe consisting of the polygon shapes for the states in the shapefile and our previously-made dataframe that had the proportion of dx_anx, dx_dep, and adjust_easy by regions so that we can plot the region shapes and fill them in by the proportion value of the selected variable.
+\newpage
+
+The following code reads in the shapefile that consists of all US states and transforms it so that it has the right projection (and doesn't create an issue with an inconsistent datum). We group states together to form 9 different regions based on the `inst_geo` variable in the HMS codebook. We had to join together the dataframe consisting of the polygon shapes for the states in the shapefile and our previously-made dataframe that had the proportion of `dx_anx`, `dx_dep`, and `adjust_easy` by region so that we can plot the region shapes and fill them in by the proportion value of the selected variable.
 
 ```{r}
 # Code in this block was written by Miranda
