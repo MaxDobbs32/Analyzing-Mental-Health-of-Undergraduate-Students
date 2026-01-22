@@ -12,64 +12,120 @@ Data from HMS stored in Google Drive on 10/8/25: <https://drive.google.com/file/
 
 Full citation: Healthy Minds Network (2007-2025). Healthy Minds Study among Colleges and Universities, 2007-2025 datasets. Healthy Minds Network, University of Michigan, University of California Los Angeles, Boston University, and Wayne State University. <https://healthymindsnetwork.org/research/data-for-researchers.>
 
-# Citations
+\newpage
 
-If your group worked with others (beyond your groupmates) or used resources outside of provided course material, such as Generative AI, (anything besides our textbook, course materials in the repo, labs, R help menu) to help complete this assignment, please acknowledge them below using a bulleted list. Remember that according to our class framework, if you engage with Generative AI tools, the tool and date of use must be listed here, and then a complete record of the chat history must be appended to the assignment.
+# Sources for Data Wrangling Code
 
-<!-- ~~~~~~~~~~~~~~~~ YOU MAY BEGIN EDITING BELOW THIS LINE ~~~~~~~~~~~~~~~~ -->
+*We used the following sources to help complete this assignment (with access dates):*
+
+Guided us on how to save data sets in order to reduce file reading time (10/24/25):
+
+-   Rcrastinate. 2019. "How to save (and load) datasets in R: An overview." *R-bloggers*, May 27. <https://www.r-bloggers.com/2019/05/how-to-save-and-load-datasets-in-r-an-overview/>.
+
+Taught us function to read excel files (10/22/25):
+
+-   Geetansh. 2025. "How to read excel file in R?" *GeeksforGeeks*, July 23. <https://www.geeksforgeeks.org/r-language/how-to-read-excel-file-in-r/>.
+
+Assisted us in reading large CSV files efficiently (10/20/25):
+
+-   Gulati, Jayita. 2025. "How to Handle Large Data Files Efficiently in R." *Statology*, March 31. <https://www.statology.org/how-to-handle-large-data-files-efficiently-in-r/>.
+
+Helped us use `if_else()` with `mutate()` to transform empty string values into 0s (10/24/25):
+
+-   dplyr authors. n.d. "Vectorised if-else." *Tidyverse*. Accessed October 24, 2025. <https://dplyr.tidyverse.org/reference/if_else.html>.
+
+Guided us on how to use `case_when()` with `mutate()` (10/24/25):
+
+-   dplyr authors. n.d. "A general vectorised if-else." *Tidyverse*. Accessed October 24, 2025. <https://dplyr.tidyverse.org/reference/case_when.html>.
+
+Confirmed for us that we can use `drop_na()` to drop rows with NA values if they appear in a specified column (10/26/25):
+
+-   Jagdale, Devang. 2025. "Remove rows with NA in one column of R DataFrame." *GeeksforGeeks*, last modified April 11. <https://www.geeksforgeeks.org/r-language/remove-rows-with-na-in-one-column-of-r-dataframe/>.
+
+Taught us how to group multiple states in a region for our Leaflet map (10/27/25):
+
+-   Jumble. 2023. "Outline multiple polygons R leaflet to show territories." *Stack Overflow*, April 19. <https://stackoverflow.com/a/76054852>.
+
+Informed us on how to merge several polygons (states) in our Leaflet map (10/28/25):
+
+-   SymbolixAU. 2018. "How do I merge polygon features in a shapefile with many polygons?" *Stack Overflow*, March 19. <https://stackoverflow.com/a/49354480>.
+
+Helped us solve issue with an inconsistent datum (10/28/25):
+
+-   ColinB. 2019. "How to apply spatial polygons to leaflet map using .shp." *Stack Overflow*, July 26. <https://stackoverflow.com/a/57224869>.
+
+\newpage
+
+# Sources for Shiny App Code
 
 *We acknowledge the following individuals with whom we worked on this assignment:*
 
--   Erika, a fellow student at Amherst College, helped us understand that the server and UI need to be in the same file.
+-   Erika, a fellow student at Amherst College, helped us understand that the server and UI of a Shiny application need to be in the same file (app.R).
 
-*We used the following sources to help complete this assignment:*
+*We used the following sources to help complete this assignment (with access dates):*
 
--   Guide on how to save datasets in order to reduce file reading time (10/24/25): <https://www.r-bloggers.com/2019/05/how-to-save-and-load-datasets-in-r-an-overview/>
+Guided us on the use of various Shiny functions (10/27/25):
 
--   Guide on how to read excel files (10/22/25): <https://www.geeksforgeeks.org/r-language/how-to-read-excel-file-in-r/>
+-   Shiny. n.d. "Get Started." Accessed October 27, 2025. Lessons start at <https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/>.
 
--   Guide on how to read large csv files efficiently (10/20/25): <https://www.statology.org/how-to-handle-large-data-files-efficiently-in-r/>
+Assisted us in grasping the general structure of a Shiny app (10/27/25):
 
--   Guide on how to use if_else with mutate (10/24/25): <https://dplyr.tidyverse.org/reference/if_else.html>
+-   Shiny. n.d. "Navbar Example." Accessed October 27, 2025. <https://shiny.posit.co/r/gallery/application-layout/navbar-example/>.
 
--   Guide on how to use case_when with mutate (10/24/25): <https://dplyr.tidyverse.org/reference/case_when.html>
+Helped us include a Leaflet map in our Shiny app (10/27/25):
 
--   Guide on how to turn NA values to 0 in a column (10/25/25): <https://stackoverflow.com/questions/13172711/replace-na-with-0-in-a-data-frame-column>
+-   Leaflet authors. n.d. "Using Leaflet with Shiny." *Leaflet*. Accessed October 27, 2025. <https://rstudio.github.io/leaflet/articles/shiny.html>.
 
--   Guide on how to drop rows with NA values if they appear in a specific column (10/26/25): <https://www.geeksforgeeks.org/r-language/remove-rows-with-na-in-one-column-of-r-dataframe/>
+Taught us how to add line breaks in descriptions (10/28/25): 
 
--   Guide on ShinyApp (10/27/25): <https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/> (lessons start here), <https://shiny.posit.co/r/gallery/application-layout/navbar-example/>
+-   Santosh M. 2017. "helpText shown with extra lines (R Shiny)." *Stack Overflow*, November 1. <https://stackoverflow.com/a/47062690>.
 
--   Guide on leaflet in Shiny (10/27/25): <https://rstudio.github.io/leaflet/articles/shiny.html>
+Informed us on how to implement menus (10/28/25):
 
--   Guide on grouping multiple states in one (10/27/25): <https://stackoverflow.com/questions/76028013/outline-multiple-polygons-r-leaflet-to-show-territories>
+-   Shiny. n.d. "Create a select list input control — selectInput." Accessed October 28, 2025. <https://shiny.posit.co/r/reference/shiny/1.6.0/selectinput.html>.
 
--   Guide on merging several polygons on leaflet (10/28/25): <https://stackoverflow.com/questions/49354393/r-how-do-i-merge-polygon-features-in-a-shapefile-with-many-polygons-reproducib>
+Used to select color palettes for the Shiny Leaflet (accessed 10/29/25):
 
--   Guide on solving issue with inconsistent datum (10/28/25): <https://stackoverflow.com/questions/57223853/how-to-apply-spatial-polygons-to-leaflet-map-using-shp>
+-   Brewer, Cynthia, Mark Harrower, Ben Sheesley, Andy Woodruff, and David Heyman. n.d. "Color Brewer 2.0." *The Pennsylvania State University*. Accessed October 29, 2025. <https://colorbrewer2.org/#type=sequential&scheme=RdPu&n=3>.
 
--   Guide on adding line breaks to Shinyapp (10/28/25): <https://stackoverflow.com/questions/47062446/helptext-shown-with-extra-lines-r-shiny>
+Assisted us in rounding decimals on the Leaflet popup (10/30/25):
 
--   Guide on implementing menu in Shiny (10/28/25): <https://shiny.posit.co/r/reference/shiny/1.6.0/selectinput.html>
+-   BioinformaticsB. 2022. "Forcing Visualizations in R to Have Only 2 Decimal Points." *Stack Overflow*, August 4. <https://stackoverflow.com/a/73229300>.
 
--   Color palette (10/29/25): <https://colorbrewer2.org/#type=sequential&scheme=RdPu&n=3>
+\newpage
 
--   Rounding decimals on leaflet popup (10/30/25): <https://stackoverflow.com/questions/73229185/forcing-visualizations-in-r-to-have-only-2-decimal-points>
+Taught us how to remove NA values from the legend of the Leaflet (10/30/25):
 
--   Remove NA from legend (10/30/25): <https://stackoverflow.com/questions/66663946/how-do-you-exclude-na-values-from-leaflet-legend>
+-   myfatson. 2021. "How do you exclude NA values from Leaflet legend?" *Stack Overflow*, May 24. <https://stackoverflow.com/a/67671407>.
 
--   Guide on static text on Shiny (10/30/25): <https://stackoverflow.com/questions/52544228/r-shiny-display-static-text-outside-sidebar-panel>
+Helped us format static text (10/30/25):
 
--   Guide on using plotly in Shiny to show information when the mouse hovers over points <https://shiny.posit.co/r/components/outputs/plot-plotly/#relevant-functions>
+-   Geovany. 2018. "R Shiny - Display static text outside sidebar panel." *Stack Overflow*, September 27. <https://stackoverflow.com/a/52545209>.
 
--   Stack Overflow article on how to use plotly <https://stackoverflow.com/questions/60294046/how-to-use-plotly-in-r-shiny>
+Informed us on using plotly to show information when the mouse hovers over points (10/31/25):
 
--   Guide on dodge2 for bar graphs (11/1/25): <https://ggplot2.tidyverse.org/reference/position_dodge.html>
+- Shiny. n.d. "Plot (plotly)." Accessed October 31, 2025. <https://shiny.posit.co/r/components/outputs/plot-plotly/#relevant-functions>.
 
--   Stack Overflow article on how to rename legend labels (11/1/25): <https://stackoverflow.com/questions/55528008/how-to-rename-a-legend-item-in-ggplot>
+Showed us how to include plotly in our Shiny app (10/31/25):
 
--   Adding static images (11/1/25): <https://educationshinyappteam.github.io/Style_Guide/staticImages.html>
+- bretauv. 2020. "How to use plotly in R shiny." *Stack Overflow*, February 19. <https://stackoverflow.com/a/60296836>.
 
--   Shiny themes (11/1/25): <https://rstudio.github.io/shinythemes/>
+Guided us on dodge2 for bar graphs to keep bars of the same year closer together (11/1/25):
 
--   Stack Overflow article on how to concatenate strings (11/1/25): <https://stackoverflow.com/questions/7201341/how-can-two-strings-be-concatenated>
+-   ggplot2 core developer team. n.d. "Dodge overlapping objects side-to-side." *Tidyverse*. Accessed November 1, 2025. <https://ggplot2.tidyverse.org/reference/position_dodge.html>.
+
+Helped us understand how to rename legend labels (11/1/25):
+
+-   onlyphantom. 2019. "how to rename a legend item in ggplot?" *Stack Overflow*, April 5. <https://stackoverflow.com/a/55529796>.
+
+Taught us how to include static image in our Shiny app (11/1/25):
+
+-   Hatfield, Neil and Robert Carey. 2024. "Chapter 12: Static Images." In *Building Shiny Apps the BOAST Way*. <https://educationshinyappteam.github.io/Style_Guide/staticImages.html>.
+
+Guided us on incorporating Shiny themes (11/1/25):
+
+-   RStudio, Inc. 2014. "Shiny Themes." <https://rstudio.github.io/shinythemes/>.
+
+Helped us understand how to concatenate strings (11/1/25):
+
+-   Rainer. 2011. "How can two strings be concatenated?" *Stack Overflow*, August 26. <https://stackoverflow.com/a/7202211>.
