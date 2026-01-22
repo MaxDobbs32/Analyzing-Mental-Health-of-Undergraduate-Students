@@ -1,5 +1,5 @@
 ---
-title: "Exec Summary - Mental Health in Undergrads"
+title: "Exec Summary - Mental Health of Undergrads"
 author: "Henry Sun, Maxine Dobbs, and Miranda Yang"
 format: pdf
 editor: visual
